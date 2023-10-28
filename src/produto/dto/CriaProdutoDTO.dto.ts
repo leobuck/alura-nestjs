@@ -1,4 +1,4 @@
-import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsPositive, IsUrl, MaxLength, Min, ValidateNested } from "class-validator";
+import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsPositive, IsUUID, IsUrl, MaxLength, Min, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 
 export class CaracteristicaProdutoDTO {
@@ -47,4 +47,7 @@ export class CriaProdutoDTO {
 
     @IsNotEmpty({ message: "Categoria do produto não pode ser vazia" })
     categoria: string;
+
+    @IsUUID(undefined, { message: 'Id do usuário inválido' })
+    usuarioId: string;
 }
