@@ -17,4 +17,18 @@ export class UsuarioRepository {
         const possivelUsuario = this.usuarios.find(usuario => usuario.email === email);
         return possivelUsuario !== undefined;
     }
+
+    async atualiza(id: string, usuario: Partial<UsuarioEntity>) {
+        const possivelUsuario = this.usuarios.find(usuario => usuario.id === id);
+
+        if (!possivelUsuario) throw new Error('Usuário não encontrado');
+
+        Object.entries(usuario).forEach(([chave, valor]) => {
+            if (chave === 'id') return;
+
+            possivelUsuario[chave] = valor;
+        });
+
+        return possivelUsuario;
+    }
 }
