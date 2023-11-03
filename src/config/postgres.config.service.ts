@@ -12,7 +12,7 @@ export class PostgresConfigService implements TypeOrmOptionsFactory {
             type: 'postgres',
             host: this.configService.get<string>('DB_HOST'),
             port: this.configService.get<number>('DB_PORT'),
-            username: this.configService.get<string>('DB_USER'),
+            username: this.configService.get<string>('DB_USERNAME'),
             password: this.configService.get<string>('DB_PASSWORD'),
             database: this.configService.get<string>('DB_NAME'),
             entities: [],
