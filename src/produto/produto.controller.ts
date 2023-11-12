@@ -36,12 +36,12 @@ export class ProdutoController {
 
     @Get()
     async listaProdutos() {
-        return this.produtoRepository.listar();
+        return this.produtoService.listaProdutos();
     }
 
     @Put('/:id')
     async atualizaProduto(@Param('id') id: string, @Body() produto: AtualizaProdutoDTO) {
-        const produtoAtualizado = await this.produtoRepository.atualiza(id, produto);
+        const produtoAtualizado = await this.produtoService.atualizaProduto(id, produto);
         return {
             produto: produtoAtualizado,
             mensagem: 'Produto atualizado com sucesso'
@@ -50,7 +50,7 @@ export class ProdutoController {
 
     @Delete('/:id')
     async removeProduto(@Param('id') id: string) {
-        const produtoRemovido = await this.produtoRepository.remove(id);
+        const produtoRemovido = await this.produtoService.deletaProduto(id);
         return {
             produto: produtoRemovido,
             mensagem: 'Produto removido com sucesso'
