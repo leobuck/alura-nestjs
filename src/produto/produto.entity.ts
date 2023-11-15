@@ -36,11 +36,13 @@ export class ProdutoEntity {
     deletedAt: string;
 
     @OneToMany(() => ProdutoCaracteristicaEntity, 
-        (produtoCaracteristicaEntity) => produtoCaracteristicaEntity.produto)
+        (produtoCaracteristicaEntity) => produtoCaracteristicaEntity.produto,
+        { cascade: true, eager: true })
     caracteristicas: ProdutoCaracteristicaEntity[];
 
     @OneToMany(() => ProdutoImagemEntity, 
-        (produtoImagemEntity) => produtoImagemEntity.produto)
+        (produtoImagemEntity) => produtoImagemEntity.produto,
+        { cascade: true, eager: true })
     imagens: ProdutoImagemEntity[];
 }
 
