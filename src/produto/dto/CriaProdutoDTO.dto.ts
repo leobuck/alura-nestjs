@@ -1,20 +1,29 @@
 import { ArrayMinSize, IsArray, IsNotEmpty, IsNumber, IsPositive, IsUUID, IsUrl, MaxLength, Min, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
+import { ProdutoEntity } from "../produto.entity";
 
 export class CaracteristicaProdutoDTO {
+    id: string;
+
     @IsNotEmpty({ message: 'Nome da caracteristica não pode ser vazio' })
     nome: string;
 
     @IsNotEmpty({ message: 'Descrição da caracteristica não pode ser vazia' })
     descricao: string;
+
+    produto: ProdutoEntity;
 }
 
 export class ImagemProdutoDTO {
+    id: string;
+
     @IsUrl(undefined, { message: 'URL da imagem inválida' })
     url: string;
 
     @IsNotEmpty({ message: 'Descrição da imagem não pode ser vazia' })
     descricao: string;
+    
+    produto: ProdutoEntity;
 }
 
 export class CriaProdutoDTO {

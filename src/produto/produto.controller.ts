@@ -21,8 +21,8 @@ export class ProdutoController {
         produtoEntity.valor = produto.valor;
         produtoEntity.quantidade = produto.quantidade;
         produtoEntity.descricao = produto.descricao;
-        // produtoEntity.caracteristicas = produto.caracteristicas;
-        // produtoEntity.imagens = produto.imagens;
+        produtoEntity.caracteristicas = produto.caracteristicas;
+        produtoEntity.imagens = produto.imagens;
         produtoEntity.categoria = produto.categoria;
         produtoEntity.usuarioId = produto.usuarioId;
         produtoEntity.id = uuid();
