@@ -1,8 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { UsuarioRepository } from "./usuario.repository";
 import { CriaUsuarioDTO } from "./dto/CriaUsuario.dto";
-import { UsuarioEntity } from "./usuario.entity";
-import { v4 as uuid } from 'uuid';
 import { ListaUsuarioDTO } from "./dto/ListaUsuario.dto";
 import { AtualizaUsuarioDTO } from "./dto/AtualizaUsuario.dto";
 import { UsuarioService } from "./usuario.service";
@@ -11,22 +8,15 @@ import { UsuarioService } from "./usuario.service";
 export class UsuarioController {
 
     constructor(
-        private usuarioRepository: UsuarioRepository,
         private usuarioService: UsuarioService
     ) {}
 
     @Post()
     async criaUsuario(@Body() usuario: CriaUsuarioDTO) {
-        const usuarioEntity = new UsuarioEntity();
-        usuarioEntity.email = usuario.email;
-        usuarioEntity.nome = usuario.nome;
-        usuarioEntity.senha = usuario.senha;
-        usuarioEntity.id = uuid();
-
-        this.usuarioService.criaUsuario(usuarioEntity);
+        const criado = await this.usuarioService.criaUsuario(usuario);
         return { 
-            usuario: new ListaUsuarioDTO(usuarioEntity.id, usuarioEntity.nome), 
-            mensagem: 'Usuário criado com sucesso' };
+            usuario: new ListaUsuarioDTO(criado.id, criado.nome), 
+            mensagem: 'Usuário criado com sucesso.' };
     }
 
     @Get()
@@ -40,7 +30,7 @@ export class UsuarioController {
         const usuarioAtualizado = await this.usuarioService.atualizaUsuario(id, usuario);
         return { 
             usuario: usuarioAtualizado,
-            mensagem: 'Usuário atualizado com sucesso'
+            mensagem: 'Usuário atualizado com sucesso.'
         };
     }
 
@@ -49,7 +39,7 @@ export class UsuarioController {
         const usuarioRemovido = await this.usuarioService.deletaUsuario(id);
         return { 
             usuario: usuarioRemovido,
-            mensagem: 'Usuário removido com sucesso'
+            mensagem: 'Usuário removido com sucesso.'
         };
     }
 }

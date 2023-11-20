@@ -1,8 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
-import { ProdutoRepository } from "./produto.repository";
 import { CriaProdutoDTO } from "./dto/CriaProdutoDTO.dto";
-import { ProdutoEntity } from "./produto.entity";
-import { v4 as uuid } from 'uuid';
 import { AtualizaProdutoDTO } from "./dto/AtualizaProduto.dto";
 import { ProdutoService } from "./produto.service";
 
@@ -10,33 +7,21 @@ import { ProdutoService } from "./produto.service";
 export class ProdutoController {
 
     constructor(
-        private produtoRepository: ProdutoRepository,
         private produtoService: ProdutoService
     ) {}
 
     @Post()
     async criaProduto(@Body() produto: CriaProdutoDTO) {
-        const produtoEntity = new ProdutoEntity();
-        produtoEntity.nome = produto.nome;
-        produtoEntity.valor = produto.valor;
-        produtoEntity.quantidade = produto.quantidade;
-        produtoEntity.descricao = produto.descricao;
-        produtoEntity.caracteristicas = produto.caracteristicas;
-        produtoEntity.imagens = produto.imagens;
-        produtoEntity.categoria = produto.categoria;
-        produtoEntity.usuarioId = produto.usuarioId;
-        produtoEntity.id = uuid();
-
-        this.produtoService.criaProduto(produtoEntity);
+        const criado = await this.produtoService.criaProduto(produto);
         return {
-            produto: produtoEntity,
-            mensagem: 'Produto criado com sucesso'
+            produto: criado,
+            mensagem: 'Produto criado com sucesso.'
         };
     }
 
     @Get()
     async listaProdutos() {
-        return this.produtoService.listaProdutos();
+        return await this.produtoService.listaProdutos();
     }
 
     @Put('/:id')
@@ -44,7 +29,7 @@ export class ProdutoController {
         const produtoAtualizado = await this.produtoService.atualizaProduto(id, produto);
         return {
             produto: produtoAtualizado,
-            mensagem: 'Produto atualizado com sucesso'
+            mensagem: 'Produto atualizado com sucesso.'
         }
     }
 
@@ -53,7 +38,7 @@ export class ProdutoController {
         const produtoRemovido = await this.produtoService.deletaProduto(id);
         return {
             produto: produtoRemovido,
-            mensagem: 'Produto removido com sucesso'
+            mensagem: 'Produto removido com sucesso.'
         }
     }
 }
