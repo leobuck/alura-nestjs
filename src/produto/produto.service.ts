@@ -23,7 +23,6 @@ export class ProdutoService {
         produtoEntity.caracteristicas = produto.caracteristicas;
         produtoEntity.imagens = produto.imagens;
         produtoEntity.categoria = produto.categoria;
-        produtoEntity.usuarioId = produto.usuarioId;
         
         return await this.produtoRepository.save(produtoEntity);
     }
