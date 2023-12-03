@@ -25,4 +25,18 @@ export class PedidoService {
     const pedidoCriado = await this.pedidoRepository.save(pedidoEntity);
     return pedidoCriado;
   }
+
+  async buscarPedidosDoUsuario(usuarioId: string) {
+    const pedidos = await this.pedidoRepository.find(
+      {
+        where: {
+          usuario: { id: usuarioId },
+        },
+        relations: {
+          usuario: true
+        },
+      }
+    );
+    return pedidos;
+  }
 }

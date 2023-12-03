@@ -1,4 +1,4 @@
-import { Controller, Post, Query } from '@nestjs/common';
+import { Controller, Get, Post, Query } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 
 @Controller('pedidos')
@@ -12,5 +12,11 @@ export class PedidoController {
       pedido: pedidoCriado,
       mensagem: 'Pedido criado com sucesso.'
     };
+  }
+
+  @Get()
+  async buscarPedidosDoUsuario(@Query('usuarioId') usuarioId: string) {
+    const pedidos = await this.pedidoService.buscarPedidosDoUsuario(usuarioId);
+    return pedidos;
   }
 }
