@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { StatusPedido } from "./enum/statuspedido.enum";
+import { UsuarioEntity } from "../usuario/usuario.entity";
 
-@Entity({ name: 'usuarios' })
+@Entity({ name: 'pedidos' })
 export class PedidoEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -20,4 +21,7 @@ export class PedidoEntity {
 
     @DeleteDateColumn({ name: 'deleted_at' })
     deletedAt: string;
+
+    @ManyToOne(() => UsuarioEntity, (usuario) => usuario.pedidos)
+    usuario: UsuarioEntity;
 }
