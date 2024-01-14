@@ -7,6 +7,7 @@ import { StatusPedido } from './enum/statuspedido.enum';
 import { CriaPedidoDto } from './dto/CriaPedidoDto.dto';
 import { ItemPedidoEntity } from './itempedido.entity';
 import { ProdutoEntity } from 'src/produto/produto.entity';
+import { AtualizaPedidoDto } from './dto/AtualizaPedidoDto';
 
 @Injectable()
 export class PedidoService {
@@ -62,5 +63,13 @@ export class PedidoService {
       }
     );
     return pedidos;
+  }
+
+  async atualizaPedido(pedidoId: string, dadosDeAtualizacao: AtualizaPedidoDto) {
+    const pedido = await this.pedidoRepository.findOneBy({ id: pedidoId });
+
+    Object.assign(pedido, dadosDeAtualizacao);
+
+    return await this.pedidoRepository.save(pedido);
   }
 }
