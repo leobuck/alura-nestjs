@@ -1,6 +1,4 @@
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { StatusPedido } from "./enum/statuspedido.enum";
-import { UsuarioEntity } from "../usuario/usuario.entity";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { PedidoEntity } from "./pedido.entity";
 
 @Entity({ name: 'itens_pedido' })
@@ -19,5 +17,4 @@ export class ItemPedidoEntity {
         {onDelete: 'CASCADE', onUpdate: 'CASCADE'}
     )
     pedido: PedidoEntity;
-
 }
