@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProdutoCaracteristicaEntity } from "./produto-caracteristica.entity";
 import { ProdutoImagemEntity } from "./produto-imagem.entity";
+import { ItemPedidoEntity } from "src/pedido/itempedido.entity";
 
 @Entity({ name: 'produtos' })
 export class ProdutoEntity {
@@ -41,5 +42,9 @@ export class ProdutoEntity {
         (produtoImagemEntity) => produtoImagemEntity.produto,
         { cascade: true, eager: true })
     imagens: ProdutoImagemEntity[];
+
+    @OneToMany(() => ItemPedidoEntity,
+        (itemPedidoEntity) => itemPedidoEntity.produto)
+    itensPedido: ItemPedidoEntity[];
 }
 
