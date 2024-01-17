@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CriaPedidoDto } from './dto/CriaPedidoDto.dto';
 import { AtualizaPedidoDto } from './dto/AtualizaPedidoDto';
@@ -10,11 +18,15 @@ export class PedidoController {
   @Post()
   async criaPedido(
     @Query('usuarioId') usuarioId: string,
-    @Body() dadosDoPedido: CriaPedidoDto) {
-    const pedidoCriado = await this.pedidoService.cadastraPedido(usuarioId, dadosDoPedido);
+    @Body() dadosDoPedido: CriaPedidoDto,
+  ) {
+    const pedidoCriado = await this.pedidoService.cadastraPedido(
+      usuarioId,
+      dadosDoPedido,
+    );
     return {
       pedido: pedidoCriado,
-      mensagem: 'Pedido criado com sucesso.'
+      mensagem: 'Pedido criado com sucesso.',
     };
   }
 
@@ -27,11 +39,15 @@ export class PedidoController {
   @Patch(':id')
   async atualizaPedido(
     @Param('id') pedidoId: string,
-    @Body() dadosDeAtualizacao: AtualizaPedidoDto) {
-      const pedidoAtualizado = await this.pedidoService.atualizaPedido(pedidoId, dadosDeAtualizacao);
-      return {
-        pedido: pedidoAtualizado,
-        mensagem: 'Pedido atualizado com sucesso'
-      };
+    @Body() dadosDeAtualizacao: AtualizaPedidoDto,
+  ) {
+    const pedidoAtualizado = await this.pedidoService.atualizaPedido(
+      pedidoId,
+      dadosDeAtualizacao,
+    );
+    return {
+      pedido: pedidoAtualizado,
+      mensagem: 'Pedido atualizado com sucesso',
+    };
   }
 }
