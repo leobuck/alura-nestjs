@@ -108,17 +108,14 @@ export class PedidoService {
     return pedidos;
   }
 
-  async atualizaPedido(
-    pedidoId: string,
-    dadosDeAtualizacao: AtualizaPedidoDto,
-  ) {
+  async atualizaPedido(pedidoId: string, dto: AtualizaPedidoDto) {
     const pedido = await this.pedidoRepository.findOneBy({ id: pedidoId });
 
     if (pedido === null) {
       throw new NotFoundException('O pedido não foi encontrado.');
     }
 
-    Object.assign(pedido, dadosDeAtualizacao);
+    Object.assign(pedido, dto as PedidoEntity);
 
     return await this.pedidoRepository.save(pedido);
   }

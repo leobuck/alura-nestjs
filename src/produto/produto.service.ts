@@ -12,16 +12,10 @@ export class ProdutoService {
     private readonly produtoRepository: Repository<ProdutoEntity>,
   ) {}
 
-  async criaProduto(produto: CriaProdutoDTO) {
+  async criaProduto(dto: CriaProdutoDTO) {
     const produtoEntity = new ProdutoEntity();
 
-    produtoEntity.nome = produto.nome;
-    produtoEntity.valor = produto.valor;
-    produtoEntity.quantidadeDisponivel = produto.quantidadeDisponivel;
-    produtoEntity.descricao = produto.descricao;
-    produtoEntity.caracteristicas = produto.caracteristicas;
-    produtoEntity.imagens = produto.imagens;
-    produtoEntity.categoria = produto.categoria;
+    Object.assign(produtoEntity, dto as ProdutoEntity);
 
     return await this.produtoRepository.save(produtoEntity);
   }
@@ -36,7 +30,7 @@ export class ProdutoService {
       throw new NotFoundException('O produto não foi encontrado.');
     }
 
-    Object.assign(produto, dto);
+    Object.assign(produto, dto as ProdutoEntity);
 
     await this.produtoRepository.save(produto);
   }
