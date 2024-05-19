@@ -9,7 +9,7 @@ import {
 } from 'typeorm';
 import { ProdutoCaracteristicaEntity } from './produto-caracteristica.entity';
 import { ProdutoImagemEntity } from './produto-imagem.entity';
-import { ItemPedidoEntity } from 'src/pedido/itempedido.entity';
+import { ItemPedidoEntity } from 'src/modulos/pedido/itempedido.entity';
 
 @Entity({ name: 'produtos' })
 export class ProdutoEntity {

@@ -10,7 +10,7 @@ import { UsuarioEntity } from '../usuario/usuario.entity';
 import { StatusPedido } from './enum/statuspedido.enum';
 import { CriaPedidoDto } from './dto/CriaPedidoDto.dto';
 import { ItemPedidoEntity } from './itempedido.entity';
-import { ProdutoEntity } from 'src/produto/produto.entity';
+import { ProdutoEntity } from 'src/modulos/produto/produto.entity';
 import { AtualizaPedidoDto } from './dto/AtualizaPedidoDto';
 
 @Injectable()
