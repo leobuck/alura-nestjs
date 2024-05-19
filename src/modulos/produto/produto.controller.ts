@@ -27,6 +27,7 @@ export class ProdutoController {
   }
 
   @Get()
+  @UseInterceptors(CacheInterceptor)
   async listaProdutos() {
     return await this.produtoService.listaProdutos();
   }
@@ -35,7 +36,6 @@ export class ProdutoController {
   @UseInterceptors(CacheInterceptor)
   async listaUm(@Param('id') id: string) {
     const produto = await this.produtoService.listaUmProduto(id);
-    console.log('Produto sendo consultado...');
     return produto;
   }
 
