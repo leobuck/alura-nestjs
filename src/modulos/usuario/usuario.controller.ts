@@ -28,8 +28,6 @@ export class UsuarioController {
       senha: senhaHasheada,
     });
 
-    console.log(criado);
-
     return {
       usuario: new ListaUsuarioDTO(criado.id, criado.nome),
       mensagem: 'Usuário criado com sucesso.',
