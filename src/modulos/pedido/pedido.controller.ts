@@ -6,12 +6,16 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { PedidoService } from './pedido.service';
 import { CriaPedidoDto } from './dto/CriaPedidoDto.dto';
 import { AtualizaPedidoDto } from './dto/AtualizaPedidoDto';
-import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
+import {
+  AutenticacaoGuard,
+  RequisicaoComUsuario,
+} from '../autenticacao/autenticacao.guard';
 
 @UseGuards(AutenticacaoGuard)
 @Controller('pedidos')
@@ -20,9 +24,10 @@ export class PedidoController {
 
   @Post()
   async criaPedido(
-    @Query('usuarioId') usuarioId: string,
+    @Req() req: RequisicaoComUsuario,
     @Body() dadosDoPedido: CriaPedidoDto,
   ) {
+    const usuarioId = req.usuario.sub;
     const pedidoCriado = await this.pedidoService.cadastraPedido(
       usuarioId,
       dadosDoPedido,
@@ -34,7 +39,8 @@ export class PedidoController {
   }
 
   @Get()
-  async buscarPedidosDoUsuario(@Query('usuarioId') usuarioId: string) {
+  async buscarPedidosDoUsuario(@Req() req: RequisicaoComUsuario) {
+    const usuarioId = req.usuario.sub;
     const pedidos = await this.pedidoService.buscarPedidosDoUsuario(usuarioId);
     return pedidos;
   }
