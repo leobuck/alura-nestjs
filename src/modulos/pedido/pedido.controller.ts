@@ -13,12 +13,12 @@ import { CriaPedidoDto } from './dto/CriaPedidoDto.dto';
 import { AtualizaPedidoDto } from './dto/AtualizaPedidoDto';
 import { AutenticacaoGuard } from '../autenticacao/autenticacao.guard';
 
+@UseGuards(AutenticacaoGuard)
 @Controller('pedidos')
 export class PedidoController {
   constructor(private readonly pedidoService: PedidoService) {}
 
   @Post()
-  @UseGuards(AutenticacaoGuard)
   async criaPedido(
     @Query('usuarioId') usuarioId: string,
     @Body() dadosDoPedido: CriaPedidoDto,
