@@ -5,7 +5,6 @@ import {
   Param,
   Patch,
   Post,
-  Query,
   Req,
   UseGuards,
 } from '@nestjs/common';
@@ -47,12 +46,15 @@ export class PedidoController {
 
   @Patch(':id')
   async atualizaPedido(
+    @Req() req: RequisicaoComUsuario,
     @Param('id') pedidoId: string,
     @Body() dadosDeAtualizacao: AtualizaPedidoDto,
   ) {
+    const usuarioId = req.usuario.sub;
     const pedidoAtualizado = await this.pedidoService.atualizaPedido(
       pedidoId,
       dadosDeAtualizacao,
+      usuarioId,
     );
     return {
       pedido: pedidoAtualizado,
