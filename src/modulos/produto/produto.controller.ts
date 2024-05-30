@@ -12,14 +12,22 @@ import { CriaProdutoDTO } from './dto/CriaProdutoDTO.dto';
 import { AtualizaProdutoDTO } from './dto/AtualizaProduto.dto';
 import { ProdutoService } from './produto.service';
 import { CacheInterceptor } from '@nestjs/cache-manager';
+import { CustomLogger } from '../custom-logger/custom-logger.service';
 
 @Controller('/produtos')
 export class ProdutoController {
-  constructor(private produtoService: ProdutoService) {}
+  constructor(
+    private produtoService: ProdutoService,
+    private readonly logger: CustomLogger,
+  ) {
+    this.logger.setContext('ProdutoController');
+  }
 
   @Post()
   async criaProduto(@Body() produto: CriaProdutoDTO) {
     const criado = await this.produtoService.criaProduto(produto);
+    this.logger.logEmArquivo(criado);
+    this.logger.logColorido(criado);
     return {
       produto: criado,
       mensagem: 'Produto criado com sucesso.',
